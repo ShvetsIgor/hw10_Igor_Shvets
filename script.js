@@ -2,14 +2,18 @@
 
 function randomNumber(min, max) {
     return parseInt(Math.random() * (max - min) + min); // 72.236545 -> 72
+    // Math.random() * 1000000 % max + min т.к. при делении с остатком числа - остаток будет любым числом ДО этого числа (n % 36 = 0 - 35)
 }
 
 const numbers = new Array(5);
 
 function fiveNumbers(){
     const numbers = [];
-    for (let i = 0; i < 5; i++) {
-        numbers.push(randomNumber(1, 36));
+    while (numbers.length < 5) { // for -> while
+        const num = randomNumber(1, 36);
+        if (!numbers.includes(num)) { //check
+            numbers.push(num);
+        }
     }
     return numbers;
 }
@@ -20,11 +24,15 @@ document.querySelector('button').onclick = function () {
     const max = maxValue(answer);
     const avg = average(answer);
     const stats = statistics(min, max, avg);
+    const mySort = sorting(answer);
+    const EvenOdd = countEvenOdds(answer)
     document.getElementById("fiveRandomNumbers").innerHTML =
     `<p>${answer.join(" * ")}</p>
     <p>Min Value: ${stats["Min value"]}</p>
     <p>Max Value: ${stats["Max value"]}</p>
-    <p>Average: ${stats["Average"]}</p>`;
+    <p>Average: ${stats["Average"]}</p>
+    <p>Sorting: ${mySort.join(', ')}</p>
+    <p>You have ${EvenOdd}</p>`;
 };
 
 function maxValue(arr) {
@@ -48,6 +56,22 @@ function statistics(minValue, maxValue, average){
         }
 }
 
+function sorting (arr){
+    return arr.slice().sort((a,b) => b - a);
+}
+
+function countEvenOdds(arr){
+    let resEven = 0;
+    let resOdd = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 === 0) {
+            resEven++;
+        } else {
+            resOdd++
+        }
+    }
+    return resEven + ' even numbers and ' + resOdd + " odd numbers";
+}
 
 
 
