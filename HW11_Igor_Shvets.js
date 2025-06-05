@@ -22,7 +22,7 @@ let results = [
 
 console.log(results.sort((a, b) => {
     if (a.points !== b.points)
-        return b.points - a.points;
+        return b.points - a.points; //сортируем от большего к меньшему (DESC)
     else {
-        return b.name.localeCompare(a.name);
+        return a.name.localeCompare(b.name); //при одинаковых - сортируем от меньшего к большему (ASK)
     }}));
